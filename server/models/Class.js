@@ -11,7 +11,7 @@ let schema = new Schema({
 
 schema.pre('remove', function() {
     //find Users and students with this class id in their classes and remove the class
-    Console.log('is this gonna delete')
+    console.log('schema pre remove triggered')
 })
 
 module.exports = mongoose.model('Class', schema)

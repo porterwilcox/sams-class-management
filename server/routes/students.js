@@ -4,7 +4,7 @@ let Students = require('../models/Student')
 //get all
 router.get('/', (req, res, next) => {
     Students.find({ teacherId: req.session.uid })
-        .then(students => {res.send(students)})
+        .then(students => { res.send(students) })
         .catch(e => next(e))
 })
 
@@ -14,6 +14,12 @@ router.post('/', (req, res, next) => {
         .then(s => {
             return res.send(s)
         })
+        .catch(e => next(e))
+})
+
+router.use('/delete/:sId', (req, res, next) => {
+    Students.findByIdAndDelete(req.params.sId)
+        .then(() => { res.send({ message: "successfully deleted" }) })
         .catch(e => next(e))
 })
 

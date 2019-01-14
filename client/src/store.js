@@ -37,7 +37,7 @@ export default new Vuex.Store({
         })
     },
     deleteClass({}, id){
-      api.delete(`classes/${id}`)
+      api.delete(`classes/delete/${id}`)
       .then(res => {
         console.log(res)
       })

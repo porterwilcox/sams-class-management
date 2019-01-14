@@ -45,8 +45,8 @@ router.put('/:cId', (req, res, next) => {
         .catch(e => next(e))
 })
 
-router.delete('/:cId', (req, res, next) => {
-    Classes.findById(req.params.cId)
+router.use('/delete/:cId', (req, res, next) => {
+    Classes.findByIdAndDelete(req.params.cId)
         .then(c => {
             return c.remove()
         })
