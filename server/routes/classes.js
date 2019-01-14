@@ -31,15 +31,13 @@ router.post('/', (req, res, next) => {
 })
 
 //modify
-router.put('/:cId', (req, res, next) => {
-    Classes.findById(req.params.cId)
+router.use('/update', (req, res, next) => {
+    Classes.findById(req.body.id)
         .then(c => {
             if (req.body.students) {
-                return c.update(e, { $addToSet: { students: { $each: req.body.students } } })
+                return c.update({ $addToSet: { students: { $each: req.body.students } } })
             }
-            else {
-                return c.update(e)
-            }
+            return c.update(req.body)
         })
         .then(() => { res.send({ message: "class successfully updated!" }) })
         .catch(e => next(e))

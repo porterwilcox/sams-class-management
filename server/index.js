@@ -38,8 +38,10 @@ server.use('*', (req, res, next) => {
         next()
     }
 })
-let students = require('./routes/students')
-let classes = require('./routes/classes')
+const students = require('./routes/students')
+const classes = require('./routes/classes')
+const teachers = require('./routes/teachers')
+server.use('/api/teachers', teachers)
 server.use('/api/classes', classes)
 server.use('/api/students', students)
 

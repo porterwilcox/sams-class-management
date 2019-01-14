@@ -17,6 +17,20 @@ router.post('/', (req, res, next) => {
         .catch(e => next(e))
 })
 
+//update
+router.use('/update', (req, res, next) => {
+    Students.findById(req.body.id)
+        .then(s => {
+            if (req.body.classes) {
+                return s.update({ $addToSet: { classes: { $each: req.body.classes} } })
+            }
+            return s.update(req.body)
+        })
+        .then(() => { res.send({ message: "student successfully updated!" }) })
+        .catch(e => next(e))
+})
+
+//delete
 router.use('/delete/:sId', (req, res, next) => {
     Students.findByIdAndDelete(req.params.sId)
         .then(() => { res.send({ message: "successfully deleted" }) })

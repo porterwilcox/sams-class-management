@@ -53,4 +53,10 @@ router.delete('/logout', (req, res, next) => {
     })
 })
 
+router.delete('/delete', (req, res, next) => {
+    Users.findByIdAndRemove(req.session.uid)
+        .then(() => {res.send({message: "User account successfully deleted."})})
+        .catch(e => {next(e)})
+})
+
 module.exports = { router, session }
