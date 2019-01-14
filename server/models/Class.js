@@ -2,7 +2,7 @@ let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 const Teachers = require('../models/User')
-const Students = require('../models/Student')
+const Students = require('./Student')
 
 let schema = new Schema({
     teacherId: { type: ObjectId, ref: 'User', required: true },
