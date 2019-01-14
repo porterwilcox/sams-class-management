@@ -13,18 +13,16 @@ let schema = new Schema({
 
 schema.pre('remove', function () {
     let id = this._doc._id //ObjectId
-    //find Users and students with this class id in their classes and remove the class
     Promise.all([
         Teachers.findOne({ classes: id })
             .then(teacher => {
+                if (!teacher) return
                 return teacher.update({ $pull: { classes: id }  })
             }),
-        //
-        //
-        //TODO - iterate over collection of student models and update each one successfully
         Students.find({ classes: id })
             .then(students => {
-                return students.forEach(s => s.update({ $pull: { classes: id }  }))
+                if(!students.length) return
+                return Promise.all(students.map(s => s.update({ $pull: { classes: id }  })))
             })
     ])
         .then(() => console.log(`class ${id} removed from teacher and student accounts`))
