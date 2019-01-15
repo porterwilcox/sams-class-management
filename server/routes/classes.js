@@ -1,5 +1,5 @@
 let router = require('express').Router()
-let Classes = require('../models/Models')
+let Classes = require('../models/Models').ClassSchema
 
 router.get('/', (req, res, next) => {
     Classes.find({ teacherId: req.session.uid })

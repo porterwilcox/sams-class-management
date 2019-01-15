@@ -19,7 +19,7 @@ classSchema.pre('remove', function () {
                 if (!teacher) return
                 return teacher.update({ $pull: { classes: id } })
             }),
-        Students.find({ classes: id })
+        StudentSchema.find({ classes: id })
             .then(students => {
                 if (!students.length) return
                 return Promise.all(students.map(s => s.update({ $pull: { classes: id } })))
@@ -32,7 +32,7 @@ classSchema.pre('remove', function () {
 classSchema.post('update', function () {
     let id = this._conditions._id
     let studentIds = this._update.$addToSet.students.$each
-    Students.find({ _id: { $in: studentIds } })
+    StudentSchema.find({ _id: { $in: studentIds } })
         .then(students => {
             if (!students.length) return
             return Promise.all(students.map(s => s.update({ $addToSet: { classes: id } })))
@@ -65,7 +65,7 @@ studentSchema.pre('remove', function () {
                 if (!teacher) return
                 return teacher.update({ $pull: { students: id } })
             }),
-        Classes.find({ students: id })
+        ClassSchema.find({ students: id })
             .then(classes => {
                 if (!classes.length) return
                 return Promise.all(classes.map(c => c.update({ $pull: { students: id } })))
@@ -78,7 +78,7 @@ studentSchema.pre('remove', function () {
 studentSchema.post('update', function () {
     let id = this._conditions._id
     let classIds = this._update.$addToSet.classes.$each
-    Classes.find({ _id: { $in: classIds } })
+    ClassSchema.find({ _id: { $in: classIds } })
         .then(classes => {
             if (!classes.length) return
             return Promise.all(classes.map(c => c.update({ $addToSet: { students: id } })))
