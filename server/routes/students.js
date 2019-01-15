@@ -1,5 +1,5 @@
 let router = require('express').Router()
-let Students = require('../models/Student')
+let Students = require('./Models').studentSchema
 
 //get all
 router.get('/', (req, res, next) => {
@@ -32,8 +32,11 @@ router.use('/update', (req, res, next) => {
 
 //delete
 router.use('/delete/:sId', (req, res, next) => {
-    Students.findByIdAndDelete(req.params.sId)
-        .then(() => { res.send({ message: "successfully deleted" }) })
+    Classes.findById(req.params.sId)
+        .then(s => {
+            return s.remove()
+        })
+        .then(() => { res.send({ message: "student successfully deleted" }) })
         .catch(e => next(e))
 })
 
