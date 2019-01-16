@@ -6,9 +6,7 @@ const SALT = 12
 
 let schema = new Schema({
     email: {type: String, required: true, unique: true},
-    hash: {type: String},
-    classes: [{type: ObjectId, ref: 'Class'}],
-    students: [{type: ObjectId, ref: 'Student'}]
+    hash: {type: String}
 }, {timestamps: true})
 
 schema.statics.hashPassword = function(password) {

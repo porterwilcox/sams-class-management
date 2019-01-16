@@ -8,6 +8,18 @@ router.get('/', (req, res, next) => {
         .catch(e => next(e))
 })
 
+//getOne
+router.get('/:sId', (req, res, next) => {
+    Students.findById(req.params.sId)
+        .then(s => {
+            if(!req.session.uid) {
+                s.notes = []
+            }
+            res.send(s)
+        })
+        .catch(e => next(e))
+})
+
 //create one
 router.post('/', (req, res, next) => {
     Students.create(req.body)

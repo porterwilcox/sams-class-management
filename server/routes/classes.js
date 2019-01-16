@@ -18,7 +18,6 @@ router.get('/:cId', (req, res, next) => {
             }
             res.send(classWithStudents)
         })
-        .catch(e => next(e))
 })
 
 //create one

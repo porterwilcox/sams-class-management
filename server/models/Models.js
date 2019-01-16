@@ -1,7 +1,6 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
-const Teachers = require('./User')
 
 //CLASSES---------------------------------------------
 let classSchema = new Schema({
@@ -13,18 +12,11 @@ let classSchema = new Schema({
 
 classSchema.pre('remove', function () {
     let id = this._doc._id //ObjectId
-    Promise.all([
-        Teachers.findOne({ classes: id })
-            .then(teacher => {
-                if (!teacher) return
-                return teacher.update({ $pull: { classes: id } })
-            }),
-        StudentSchema.find({ classes: id })
-            .then(students => {
-                if (!students.length) return
-                return Promise.all(students.map(s => s.update({ $pull: { classes: id } })))
-            })
-    ])
+    StudentSchema.find({ classes: id })
+        .then(students => {
+            if (!students.length) return
+            return Promise.all(students.map(s => s.update({ $pull: { classes: id } })))
+        })
         .then(() => console.log(`class ${id} removed from teacher and student accounts`))
         .catch(e => console.error(e))
 })
@@ -45,32 +37,30 @@ classSchema.post('update', function () {
 let note = new Schema({
     title: { type: String },
     content: { type: String, required: true }
-}, { timestamps: true })
+})
 
-//will probably have to make a form subschema hereq
+let form = new Schema({
+    classId: {type: ObjectId, ref: 'Class'},
+    checkboxes: {/* missingWorkAssigment: 0 || 1 */} ,
+    comments: [note]
+}, {timestamps: true})
 
 let studentSchema = new Schema({
     teacherId: { type: ObjectId, ref: 'User', required: true },
     classes: [{ type: ObjectId, ref: 'Class' }],
     firstName: { type: 'String', required: true },
     lastName: { type: 'String', required: true },
-    notes: [note]
+    notes: [note],
+    form: [form]
 }, { timestamps: true })
 
 studentSchema.pre('remove', function () {
     let id = this._doc._id //ObjectId
-    Promise.all([
-        Teachers.findOne({ students: id })
-            .then(teacher => {
-                if (!teacher) return
-                return teacher.update({ $pull: { students: id } })
-            }),
-        ClassSchema.find({ students: id })
-            .then(classes => {
-                if (!classes.length) return
-                return Promise.all(classes.map(c => c.update({ $pull: { students: id } })))
-            })
-    ])
+    ClassSchema.find({ students: id })
+        .then(classes => {
+            if (!classes.length) return
+            return Promise.all(classes.map(c => c.update({ $pull: { students: id } })))
+        })
         .then(() => console.log(`student with id ${id} removed from teacher accounts and classes`))
         .catch(e => console.error(e))
 })
@@ -90,4 +80,4 @@ studentSchema.post('update', function () {
 const ClassSchema = mongoose.model('Classs', classSchema)
 const StudentSchema = mongoose.model('Student', studentSchema)
 
-module.exports = {ClassSchema, StudentSchema}
+module.exports = { ClassSchema, StudentSchema }
