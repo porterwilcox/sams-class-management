@@ -51,5 +51,5 @@ server.use('*', (e, req, res, next) => {
 })
 
 server.listen(port, () => {
-    console.log("Connected to ", port)
+    console.log("Connected to", port)
 })

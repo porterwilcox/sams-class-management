@@ -16,14 +16,25 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
+    teacher: {},
     classes: []
   },
   mutations: {
+    setTeacher(state, t) {
+      state.teacher = t;
+    },
     setClasses(state, classes){
       state.classes = classes
     }
   },
   actions: {
+    authenticate({commit}) {
+      auth.get('authenticate')
+        .then(res => {
+          console.log(res)
+          commit('setTeacher', res.data)
+        })
+    },
     login({commit, dispatch}, payload) {
       auth.post('login', payload)
         .then(res => {
