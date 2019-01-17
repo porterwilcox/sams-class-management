@@ -1,10 +1,26 @@
 <template>
   <div id="app" class="container-fluid">
-    <div id="nav">
-      <div class="nav-components offset-6 col-3" v-if="teacher._id">
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
-        <router-link to="/third">Third</router-link>
+    <div id="nav" class="row">
+      <div class="d-flex align-items-center col-1">
+        <img
+          src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif"
+          alt="home"
+          height="40px"
+        >
+      </div>
+      <div class="nav-components col-3 offset-3 offset-sm-4 offset-md-6">
+        <div v-if="teacher._id">
+          <router-link :to="{name: 'home'}">Home</router-link>
+          <router-link :to="{name: 'classes'}">Classes</router-link>
+          <router-link :to="{name: 'create'}">Create</router-link>
+        </div>
+        <div v-else>
+          <router-link :to="{name: 'login'}">Sign In</router-link>
+          <router-link :to="{name: 'about'}">About</router-link>
+        </div>
+      </div>
+      <div class="col-1 offset-1 d-flex align-items-center" v-if="teacher._id">
+        <button @click="$store.dispatch('logout')" class="btn btn-light">Logout</button>
       </div>
     </div>
     <router-view/>
@@ -13,13 +29,13 @@
 
 <script>
 export default {
-  name: 'app',
+  name: "app",
   computed: {
     teacher() {
-      return this.$store.state.teacher
+      return this.$store.state.teacher;
     }
   }
-}
+};
 </script>
 
 
@@ -34,6 +50,7 @@ export default {
   --white: #fffefe;
 }
 #nav {
+  display: flex;
   height: 10vh;
   border: 3px solid var(--blue);
   background-color: #f6f8fa;
@@ -41,7 +58,7 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
-  padding: 0 .5vw;
+  padding: 0 0.5vw;
   padding-bottom: 3vh;
   border-radius: 13%;
 }
@@ -52,10 +69,30 @@ export default {
   border-bottom: 1vh solid white;
   background-color: var(--white);
 }
-.nav-components {
+.nav-components,
+.nav-components div {
   height: inherit;
   display: flex;
   align-items: flex-end;
   justify-content: space-evenly;
+}
+@media (max-width: 414px) {
+  .nav-components a {
+    font-size: 0.8rem;
+  }
+}
+
+/* permeating classes defined here */
+.h90 {
+  height: 90vh;
+}
+.h50 {
+  height: 50vh;
+}
+.inherent-h {
+  height: inherit;
+}
+.w-fc{
+  width: fit-content;
 }
 </style>
