@@ -8,7 +8,15 @@
           height="40px"
         >
       </div>
-      <div class="nav-components col-3 offset-3 offset-sm-4 offset-md-6">
+      <div class="col-3 col-sm-4 col-md-6 d-flex align-items-start">
+        <mq-layout mq="md+">
+          <h3 class="m-0">{{c.period || student.firstName}} {{c.name || student.lastName}}</h3>
+        </mq-layout>
+        <mq-layout mq="sm">
+          <h6 class="m-0 ml-3">{{c.period || student.lastName}}</h6>
+        </mq-layout>
+      </div>
+      <div class="nav-components col-3">
         <div v-if="teacher._id">
           <router-link :to="{name: 'home'}">Home</router-link>
           <router-link :to="{name: 'classes'}">Classes</router-link>
@@ -33,6 +41,12 @@ export default {
   computed: {
     teacher() {
       return this.$store.state.teacher;
+    },
+    c() {
+      return this.$store.state.activeClass;
+    },
+    student() {
+      return this.$store.state.activeStudent || {};
     }
   }
 };
@@ -89,10 +103,22 @@ export default {
 .h50 {
   height: 50vh;
 }
+.h-fc {
+  height: fit-content;
+}
 .inherent-h {
   height: inherit;
 }
-.w-fc{
+.w-fc {
   width: fit-content;
+}
+.clickable {
+  cursor: pointer;
+}
+.bg-blue {
+  background-color: var(--blue);
+}
+.bg-red {
+  background-color: var(--red);
 }
 </style>

@@ -51,7 +51,7 @@ let studentSchema = new Schema({
     firstName: { type: 'String', required: true },
     lastName: { type: 'String', required: true },
     notes: [note],
-    form: [form]
+    forms: [form]
 }, { timestamps: true })
 
 studentSchema.pre('remove', function () {

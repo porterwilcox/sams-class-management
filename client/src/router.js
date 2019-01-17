@@ -35,5 +35,15 @@ export default new Router({
       name: 'about',
       component: () => import('./views/About.vue') 
     },
+    {
+      path: '/classes/:cId',
+      name: 'class',
+      component: () => import('./views/Class.vue') 
+    },
+    {
+      path: '/students/:sId',
+      name: 'student',
+      component: () => import('./views/Student.vue') 
+    }
   ]
 })

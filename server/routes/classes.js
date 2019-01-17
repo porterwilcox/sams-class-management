@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 //get one with students
 router.get('/:cId', (req, res, next) => {
     Classes.findById(req.params.cId)
-        .populate('students').exec((e, classWithStudents) => {
+        .populate('students', ['firstName', 'lastName', 'forms']).exec((e, classWithStudents) => {
             if (e) {
                 return next(e)
             }
