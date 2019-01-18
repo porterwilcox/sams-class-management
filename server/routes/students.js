@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 router.get('/:sId', (req, res, next) => {
     Students.findById(req.params.sId)
         .then(s => {
-            if(!req.session.uid) {
+            if (!req.session.uid) {
                 s.notes = []
             }
             res.send(s)
@@ -34,7 +34,11 @@ router.use('/update', (req, res, next) => {
     Students.findById(req.body.id)
         .then(s => {
             if (req.body.classes) {
-                return s.update({ $addToSet: { classes: { $each: req.body.classes} } })
+                return s.update({ $addToSet: { classes: { $each: req.body.classes } } })
+            }
+            if (req.body.form) {
+                s.forms.push(req.body.form)
+                return s.save()
             }
             return s.update(req.body)
         })

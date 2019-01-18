@@ -40,7 +40,7 @@ let note = new Schema({
 })
 
 let form = new Schema({
-    classId: {type: ObjectId, ref: 'Class'},
+    classId: {type: ObjectId, ref: 'Class', required: true},
     checkboxes: {/* missingWorkAssigment: 0 || 1 */} ,
     comments: [note]
 }, {timestamps: true})
@@ -52,7 +52,7 @@ let studentSchema = new Schema({
     lastName: { type: 'String', required: true },
     notes: [note],
     forms: [form]
-}, { timestamps: true })
+}, { timestamps: true})
 
 studentSchema.pre('remove', function () {
     let id = this._doc._id //ObjectId

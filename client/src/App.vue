@@ -10,7 +10,7 @@
       </div>
       <div class="col-3 col-sm-4 col-md-6 d-flex align-items-start">
         <mq-layout mq="md+">
-          <h3 class="m-0">{{c.period || student.firstName}} {{c.name || student.lastName}}</h3>
+          <h3 class="m-0 mt-2">{{c.period || student.firstName}} {{c.name || student.lastName}}</h3>
         </mq-layout>
         <mq-layout mq="sm">
           <h6 class="m-0 ml-3">{{c.period || student.lastName}}</h6>
@@ -27,8 +27,8 @@
           <router-link :to="{name: 'about'}">About</router-link>
         </div>
       </div>
-      <div class="col-1 offset-1 d-flex align-items-center" v-if="teacher._id">
-        <button @click="$store.dispatch('logout')" class="btn btn-light">Logout</button>
+      <div class="col d-flex justify-content-end align-items-center" v-if="teacher._id">
+        <button @click="$store.dispatch('logout')" class="btn btn-sm">Logout</button>
       </div>
     </div>
     <router-view/>
@@ -60,14 +60,16 @@ export default {
 }
 :root {
   --blue: #27408b;
+  --opac-blue: #27408b28;
   --red: #e51212;
+  --opac-red: #e5121256;
   --white: #fffefe;
 }
 #nav {
   display: flex;
   height: 10vh;
   border: 3px solid var(--blue);
-  background-color: #f6f8fa;
+  background-color: var(--opac-blue);
 }
 #nav a {
   font-weight: bold;
@@ -118,7 +120,19 @@ export default {
 .bg-blue {
   background-color: var(--blue);
 }
+.bg-opac-blue {
+  background-color: var(--opac-blue);
+}
 .bg-red {
   background-color: var(--red);
+}
+.bg-opac-red {
+  background-color: var(--opac-red);
+}
+.blue {
+  color: var(--blue);
+}
+.red {
+  color: var(--red);
 }
 </style>
