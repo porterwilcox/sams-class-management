@@ -100,10 +100,13 @@
     justify-content: space-evenly;
   }
 
-  @media (max-width: 414px) {
+  @media (max-width: 767px) {
     .nav-components a {
       font-size: 0.8rem;
+      margin-right: -50vw;
     }
+
+
   }
 
   /* permeating classes defined here */

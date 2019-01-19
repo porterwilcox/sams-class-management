@@ -4,8 +4,8 @@
       <transition name="fade">
         <div class="inherent-h card shadow" v-if="!newUser">
           <div class="card-header shadow d-flex justify-content-between align-items-center">
-            <h4 class="m-0 text-white ml-4">Login</h4>
-            <button class="btn btn-secondary shadow mr-4 my-4" @click="newUser = !newUser">Register</button>
+            <h4 class="m-0 text-white ml-4 login-btn">Login</h4>
+            <button class="btn btn-secondary shadow mr-4 my-4 register-btn" @click="newUser = !newUser">Register</button>
           </div>
           <form @submit.prevent="$store.dispatch('login', log)" class="inherent-h d-flex flex-column justify-content-around align-items-center mt-4">
             <div class="input-group d-flex justify-content-center">
@@ -121,5 +121,19 @@
 
   input {
     border: 1px solid var(--blue);
+  }
+
+  @media (max-width: 767px) {
+    .nav {
+      font-size: 0.8rem;
+    }
+
+    .login-btn {
+      margin-left: -50px;
+    }
+
+    .register-btn {
+      margin-left: 5vw;
+    }
   }
 </style>
