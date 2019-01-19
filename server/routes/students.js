@@ -40,6 +40,10 @@ router.use('/update', (req, res, next) => {
                 s.forms.push(req.body.form)
                 return s.save()
             }
+            if (req.body.note) {
+                s.notes.push(req.body.note)
+                return s.save()
+            }
             return s.update(req.body)
         })
         .then(() => { res.send({ message: "student successfully updated!" }) })
