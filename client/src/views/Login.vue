@@ -24,7 +24,7 @@
               </div>
               <input type="password" required v-model="log.password" class="w-75">
             </div>
-            <button type="submit" class="btn btn-outline-secondary w-fc">Submit</button>
+            <button type="submit" class="btn btn-secondary w-fc">Submit</button>
           </form>
         </div>
       </transition>
@@ -51,7 +51,7 @@
               </div>
               <input type="password" required v-model="reg.password" class="w-75">
             </div>
-             <div class="input-group d-flex justify-content-center">
+            <div class="input-group d-flex justify-content-center">
               <div class="input-group-prepend">
                 <span class="input-group-prepend">
                   <i class="fas fa-2x mr-1 fa-check"></i>
@@ -68,39 +68,45 @@
 </template>
 
 <script>
-export default {
-  name: "login",
-  data() {
-    return {
-      newUser: false,
-      log: {
-        email: "",
-        password: ""
-      },
-      reg: {
-        email: "",
-        password: "",
-        confirmPass: ""
+  export default {
+    name: "login",
+    data() {
+      return {
+        newUser: false,
+        log: {
+          email: "",
+          password: ""
+        },
+        reg: {
+          email: "",
+          password: "",
+          confirmPass: ""
+        }
       }
-    }
-  },
-methods: {
-    register() {
+    },
+    methods: {
+      register() {
         if (this.reg.password != this.reg.confirmPass) {
-            alert("Password confirmation doesn't match.")
-            return
+          alert("Password confirmation doesn't match.")
+          return
         }
         this.$store.dispatch('register', this.reg)
+      }
     }
-}
-};
+  };
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s;
+  }
+
+  .fade-enter,
+  .fade-leave-to
+
+  /* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+  }
 </style>
