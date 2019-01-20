@@ -60,7 +60,7 @@
               </div>
               <input type="password" placeholder="  confirm password" required v-model="reg.confirmPass" class="w-75 shadow-sm">
             </div>
-            <button class="btn btn-success w-fc shadow mt-4 mb-3">Create Account</button>
+            <button class="btn btn-success w-fc shadow my-4">Create Account</button>
           </form>
         </div>
       </transition>
@@ -130,6 +130,12 @@
   }
 
   @media (max-width: 767px) {
+
+    .card {
+      margin-left: -24vw;
+      width: 90vw;
+    }
+
     .nav {
       font-size: 0.8rem;
     }
@@ -141,5 +147,10 @@
     .register-btn {
       margin-left: 5vw;
     }
+
+    input {
+      width: 60vw;
+    }
+
   }
 </style>

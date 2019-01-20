@@ -66,7 +66,7 @@
   #nav {
     display: flex;
     height: 15vh;
-    border: 1px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
     background-color: var(--opac-blue);
   }
 
@@ -86,7 +86,7 @@
   #nav a.router-link-exact-active {
     /* color: #42b983; */
     padding-bottom: 1vh;
-    border: 1px solid var(--blue);
+    border: 2px solid var(--blue);
     border-bottom: 1vh solid white;
     background-color: var(--white);
     color: #2c3e50;
@@ -116,6 +116,10 @@
 
   .h50 {
     height: 50vh;
+  }
+
+  .h60 {
+    height: 60vh;
   }
 
   .h-fc {
