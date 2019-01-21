@@ -1,12 +1,8 @@
 <template>
   <div id="app" class="container-fluid">
     <div id="nav" class="row">
-      <div class="d-flex align-items-center col-1">
-        <img
-          src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif"
-          alt="home"
-          height="40px"
-        >
+      <div class="d-flex align-items-center col-1" @click="$router.go(-1)">
+        <img class="clickable" src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif" alt="home" height="40px">
       </div>
       <div class="col-3 col-sm-4 col-md-6 d-flex align-items-start">
         <mq-layout mq="md+">
@@ -134,5 +130,8 @@ export default {
 }
 .red {
   color: var(--red);
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 </style>

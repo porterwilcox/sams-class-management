@@ -41,7 +41,9 @@ router.use('/update', (req, res, next) => {
                 return s.save()
             }
             if (req.body.note) {
-                s.notes.push(req.body.note)
+                s.notes.pull({_id: req.body.note._id})
+                if (!req.body.note.content) return s.save()
+                s.notes.unshift(req.body.note)
                 return s.save()
             }
             return s.update(req.body)
