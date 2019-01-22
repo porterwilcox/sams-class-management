@@ -92,6 +92,14 @@ export default new Vuex.Store({
       api.get(`students/${sId}`)
         .then(res => commit('setActiveStudent', res.data))
         .catch(e => console.error(e))
-    }
+    },
+    updateStudent({commit, dispatch}, payload) {
+      api.post(`students/update`, payload) 
+        .then(res => {
+          console.log(res.data.message)
+          dispatch('getStudent', payload.id)
+        })
+        .catch(e => console.error(e))
+      }
   }
 })
