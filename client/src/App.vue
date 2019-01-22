@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container-fluid">
-    <div id="nav" class="row py-5">
+    <div id="nav" class="row">
       <div class="d-flex align-items-center col-1">
-        <img src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif" alt="home" class="ml-5" height="70px">
+        <img src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif" alt="home" class="" height="70px">
       </div>
-      <div class="col-3 col-sm-4 col-md-6 d-flex align-items-start">
+      <div class="col-6 d-flex align-items-start">
         <mq-layout mq="md+">
           <h3 class="m-0 mt-2">{{c.period || student.firstName}} {{c.name || student.lastName}}</h3>
         </mq-layout>
@@ -19,8 +19,8 @@
           <router-link :to="{name: 'create'}">Create</router-link>
         </div>
         <div v-else>
-          <router-link :to="{name: 'login'}" class="my-5 pt-2 px-4 mx-3">Sign In</router-link>
-          <router-link :to="{name: 'about'}" class="my-5 pt-2 px-4">About</router-link>
+          <router-link :to="{name: 'login'}" class="px-4 mx-3">Sign In</router-link>
+          <router-link :to="{name: 'about'}" class="px-4">About</router-link>
         </div>
       </div>
       <div class="col d-flex justify-content-end align-items-center" v-if="teacher._id">
@@ -103,7 +103,6 @@
   @media (max-width: 767px) {
     .nav-components a {
       font-size: 0.8rem;
-      margin-right: -50vw;
     }
 
 
