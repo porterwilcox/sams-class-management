@@ -2,9 +2,9 @@
   <div id="app" class="container-fluid">
     <div id="nav" class="row">
       <div class="d-flex align-items-center col-1" @click="$router.go(-1)">
-        <img class="clickable" src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif" alt="home" height="40px">
+        <img class="clickable" src="https://schoolassets.s3.amazonaws.com/logos/12813/12813.gif" alt="home" :height="$mq == 'sm' ? '40px' : '70px'">
       </div>
-      <div class="col-6 d-flex align-items-start">
+      <div class="col-4 col-md-6 d-flex align-items-start">
         <mq-layout mq="md+">
           <h3 class="m-0 mt-2">{{c.period || student.firstName}} {{c.name || student.lastName}}</h3>
         </mq-layout>
@@ -14,12 +14,12 @@
       </div>
       <div class="nav-components col-3">
         <div v-if="teacher._id">
-          <router-link :to="{name: 'home'}">Home</router-link>
-          <router-link :to="{name: 'classes'}">Classes</router-link>
-          <router-link :to="{name: 'create'}">Create</router-link>
+          <router-link :to="{name: 'home'}" class="px-2">Home</router-link>
+          <router-link :to="{name: 'classes'}" class="px-2">Classes</router-link>
+          <router-link :to="{name: 'create'}" class="px-2">Create</router-link>
         </div>
         <div v-else>
-          <router-link :to="{name: 'login'}" class="px-4 mx-3">Sign In</router-link>
+          <router-link :to="{name: 'login'}" class="px-4">Sign In</router-link>
           <router-link :to="{name: 'about'}" class="px-4">About</router-link>
         </div>
       </div>
@@ -109,8 +109,8 @@
   }
 
   /* permeating classes defined here */
-  .h90 {
-    height: 90vh;
+  .h85 {
+    height: 85vh;
   }
 
   .h50 {
@@ -168,5 +168,20 @@
   h5,
   h6 {
     margin: 0;
+  }
+
+  .card {
+    border: 2px solid rgb(221, 220, 220);
+  }
+
+  .card-header {
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    color: white;
+  }
+
+  input {
+    border: 1px solid var(--blue);
+    width: 30vw;
   }
 </style>

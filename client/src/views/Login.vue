@@ -1,5 +1,5 @@
 <template>
-  <div class="row h90 align-items-start">
+  <div class="row h85 align-items-center">
     <div class="col-6 offset-3 h50">
       <transition name="fade">
         <div class="inherent-h card shadow-lg" v-if="!newUser">
@@ -111,23 +111,6 @@
     opacity: 0;
   }
 
-  .h90 {
-    margin-top: 6rem;
-  }
-
-  .card {
-    border: 2px solid rgb(221, 220, 220);
-  }
-
-  .card-header {
-    background-color: var(--blue);
-    border: 2px solid var(--blue);
-  }
-
-  input {
-    border: 1px solid var(--blue);
-    width: 30vw;
-  }
 
   @media (max-width: 767px) {
 
