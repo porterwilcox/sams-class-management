@@ -11,20 +11,25 @@
                 <div v-else>
                     <h6 class="m-0">No Forms!</h6>
                 </div>
-                <i class="fas fa-plus mr-2 fa-lg clickable"></i>
+                <i data-toggle="modal" :data-target="'#form-modal'+s._id" class="fas fa-plus mr-2 fa-lg clickable"></i>
             </div>
         </div>
+        <form-modal :s="s" :cId="cId"></form-modal>
     </div>
 </template>
 
 <script>
+import FormModal from '@/components/CreateFormModal.vue'
 export default {
     name: 'student-card',
-    props: ['s'],
+    props: ['s', 'cId'],
     data() {
         return {
             numbers: [1, 2, 3, 4]
         }
+    },
+    components: {
+        FormModal
     }
 }
 </script>
