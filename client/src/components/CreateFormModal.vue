@@ -32,15 +32,16 @@
                 </div>
               </div>
             </li>
-            <li v-for="(value, key) in checkBoxes" class="list-group-item d-flex">
+            <li v-for="(value, key) in checkBoxes" :key="key" class="list-group-item d-flex justify-content-between">
               <h5>{{reverseCamelCase(key)}}</h5>
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <input type="checkbox" :checked="value" @change="flip(key)">
+                  <input type="checkbox" :checked="value" v-model="checkBoxes[key]" />
                 </div>
               </div>
             </li>
           </ul>
+          <button type="button" @click="createForm" class="btn btn-outline-primary">Create Form</button>
         </div>
       </div>
     </div>
@@ -104,12 +105,8 @@ export default {
       }
       return out;
     },
-    //hacky method not working!
-    //can't modify value of checkbox in the data :/
-    flip(key) {
-      let value = !this.checkBoxes[key];
-      delete this.checkBoxes[key];
-      this.checkBoxes[key] = value;
+    createForm() {
+      console.log(this.checkBoxes)
     }
   }
 };

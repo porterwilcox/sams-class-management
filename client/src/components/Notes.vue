@@ -8,6 +8,7 @@
       <h6 v-if="info" class="text-secondary">These notes are for your use only. {{s.firstName}} will never see them.</h6>
     </div>
     <div v-if="s._id" class="card-body collapse" id="note-collapse-body">
+      <!-- TODO: 12-42 to a new component for reuse -->
       <ul class="list-group">
         <em @click="newNote.active = !newNote.active" class="clickable mb-2 w-fc">{{newNote.active ? "Discard" : "Add a note"}}</em>
         <li v-if="newNote.active" :class="{'flex-column': $mq == 'sm'}" class="list-group-item d-flex justify-content-between align-items-center">
@@ -71,9 +72,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-li:nth-of-type(even) {
-  background-color: var(--light) !important;
-}
-</style>
