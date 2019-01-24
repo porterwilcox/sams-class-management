@@ -115,7 +115,6 @@
   @media (max-width: 767px) {
 
     .card {
-      margin-left: -24vw;
       width: 90vw;
     }
 
