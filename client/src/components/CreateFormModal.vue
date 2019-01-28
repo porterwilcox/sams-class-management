@@ -6,10 +6,7 @@
           <h4>{{s.firstName+' '+s.lastName}}'s new form</h4>
         </div>
         <div class="modal-body">
-          <em
-            @click="newCheckBox.active = !newCheckBox.active"
-            class="clickable mb-2 w-fc"
-          >{{newCheckBox.active ? "Discard" : "Add a checkbox"}}</em>
+          <em @click="newCheckBox.active = !newCheckBox.active" class="clickable mb-2 w-fc">{{newCheckBox.active ? "Discard checkbox" : "Add a checkbox"}}</em>
           <ul class="list-group">
             <li v-if="newCheckBox.active" class="input-group d-flex">
               <input
@@ -32,16 +29,19 @@
                 </div>
               </div>
             </li>
-            <li v-for="(value, key) in checkBoxes" :key="key" class="list-group-item d-flex justify-content-between">
+            <li v-for="(value, key) in form.checkBoxes" :key="key" class="list-group-item d-flex justify-content-between">
               <h5>{{reverseCamelCase(key)}}</h5>
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <input type="checkbox" :checked="value" v-model="checkBoxes[key]" />
+                  <input type="checkbox" :checked="value" v-model="form.checkBoxes[key]" />
                 </div>
               </div>
             </li>
           </ul>
-          <button type="button" @click="createForm" class="btn btn-outline-primary">Create Form</button>
+          <hr>
+          <notes-ul v-on:addNew="addNote" v-on:modify="modifyNote" :form="'newForm'" :s="s"/>
+
+          <button type="button" @click="createForm" class="btn btn-outline-primary m-1">Create Form</button>
         </div>
       </div>
     </div>
@@ -50,13 +50,17 @@
 
 <script>
 import camelCase from "lodash.camelcase";
+import NotesUl from '@/components/NotesUl.vue'
 
 export default {
   name: "create-form-modal",
   props: ["s", "cId"],
   data() {
     return {
-      checkBoxes: {},
+      form: {
+        checkBoxes: {},
+        notes: []
+      },
       newCheckBox: {
         active: false,
         key: "",
@@ -66,7 +70,7 @@ export default {
   },
   methods: {
     addCheckBox() {
-      this.checkBoxes[camelCase(this.newCheckBox.key)] = this.newCheckBox.value;
+      this.form.checkBoxes[camelCase(this.newCheckBox.key)] = this.newCheckBox.value;
       this.newCheckBox = {
         active: false,
         key: "",
@@ -106,8 +110,22 @@ export default {
       return out;
     },
     createForm() {
-      console.log(this.checkBoxes)
+      console.log(this.form.checkBoxes)
+    },
+    addNote(note) {
+      this.s.notes = [...this.form.notes, note]
+      this.form.notes.push(note)
+    },
+    modifyNote(note, i) {
+      if (!note.content) {
+        this.form.notes.splice(i,1)
+      } else {
+        this.form.notes[i] = note
+      }
     }
+  },
+  components: {
+    NotesUl
   }
 };
 </script>
