@@ -6,7 +6,7 @@
         <textarea v-model="newNote.content" placeholder="Content"></textarea>
         <i @click="updateNote(newNote)" class="clickable far fa-save fa-lg text-success"></i>
     </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(note, i) in s.notes">
+    <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(note, i) in s.notes || form.notes">
         <span :class="{'d-flex flex-column': $mq == 'sm'}" v-if="edit != note._id">
             <b class="mr-2">{{note.title || ''}}</b>
             {{note.content}}
@@ -18,17 +18,14 @@
             <textarea v-model="note.content"></textarea>
         </span>
         <span>
-            <i v-if="edit != note._id" @click="edit = note._id" class="clickable far fa-edit"></i>
-            <span v-else>
+            <span v-if="edit == note._id || edit == i">
                 <i @click="updateNote(note, i)" class="clickable far fa-save fa-lg text-success"></i>
                 <i @click="delete note.content; updateNote(note, i)" class="clickable far fa-trash-alt fa-lg ml-3 text-danger"></i>
             </span>
+            <i v-else @click="edit = note._id || i" class="clickable far fa-edit"></i>
         </span>
     </li>
-    <div v-if="!form && !s.notes.length && !newNote.active" class="text-center">
-        <img src="@/assets/imgs/emptystate.jpg" alt="empty" height="180px">
-        <h6 class="text-secondary">No notes for {{s.firstName}}!</h6>
-    </div>
+    <slot v-if="!newNote.active"></slot>
 </ul>
 </template>
 
@@ -38,7 +35,7 @@ export default {
     props: ["s", "form"],
     data(){
         return {
-            edit: "",
+            edit: "false",
             newNote: {
                 active: false,
                 title: "",
@@ -61,7 +58,7 @@ export default {
                 this.$emit('modify', note, i)
             }
         }
-        this.edit = "";
+        this.edit = "false";
         this.newNote = {
         active: false,
         title: "",

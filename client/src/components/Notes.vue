@@ -8,7 +8,12 @@
       <h6 v-if="info" class="text-secondary">These notes are for your use only. {{s.firstName}} will never see them.</h6>
     </div>
     <div v-if="s._id" class="card-body collapse" id="note-collapse-body">
-      <notes-ul :s="s" />
+      <notes-ul :s="s">
+        <div v-if="!s.notes.length" class="text-center">
+          <img src="@/assets/imgs/emptystate.jpg" alt="empty" height="180px">
+          <h6 class="text-secondary">No notes for {{s.firstName}}!</h6>
+        </div>
+      </notes-ul>
     </div>
   </div>
 </template>

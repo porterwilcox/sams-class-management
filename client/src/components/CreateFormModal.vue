@@ -39,8 +39,13 @@
             </li>
           </ul>
           <hr>
-          <notes-ul v-on:addNew="addNote" v-on:modify="modifyNote" :form="'newForm'" :s="s"/>
-
+          <notes-ul v-on:addNew="addNote" v-on:modify="modifyNote" :form="form" :s="s">
+            <div v-if="!form.notes.length" class="text-center">
+              <img src="@/assets/imgs/emptystate.jpg" alt="empty" height="180px">
+              <h6 class="text-secondary">No comments for {{s.firstName}} on this form!</h6>
+              <p>{{s.firstName}} <b>will</b> be able to see these comments.</p>
+            </div>
+          </notes-ul>
           <button type="button" @click="createForm" class="btn btn-outline-primary m-1">Create Form</button>
         </div>
       </div>
@@ -113,7 +118,6 @@ export default {
       console.log(this.form.checkBoxes)
     },
     addNote(note) {
-      this.s.notes = [...this.form.notes, note]
       this.form.notes.push(note)
     },
     modifyNote(note, i) {
