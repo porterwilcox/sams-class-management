@@ -31,22 +31,27 @@ router.post('/', (req, res, next) => {
 
 //update
 router.use('/update', (req, res, next) => {
-    Students.findById(req.body.id)
+    let data = req.body
+    Students.findById(data.id)
         .then(s => {
-            if (req.body.classes) {
-                return s.update({ $addToSet: { classes: { $each: req.body.classes } } })
+            if (data.classes) {
+                return s.update({ $addToSet: { classes: { $each: data.classes } } })
             }
-            if (req.body.form) {
-                s.forms.push(req.body.form)
+            if (form = data.form) {
+                if(!form._id) s.forms.unshift(form)
+                else {
+                    s.forms.pull({_id: form._id})
+                    if(!form.delete) s.forms.unshift(form)
+                }
                 return s.save()
             }
-            if (req.body.note) {
-                s.notes.pull({_id: req.body.note._id})
-                if (!req.body.note.content) return s.save()
-                s.notes.unshift(req.body.note)
+            if (data.note) {
+                s.notes.pull({_id: data.note._id})
+                if (!data.note.content) return s.save()
+                s.notes.unshift(data.note)
                 return s.save()
             }
-            return s.update(req.body)
+            return s.update(data)
         })
         .then(() => { res.send({ message: "student successfully updated!" }) })
         .catch(e => next(e))

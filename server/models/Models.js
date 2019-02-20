@@ -41,8 +41,8 @@ let note = new Schema({
 
 let form = new Schema({
     classId: {type: ObjectId, ref: 'Class', required: true},
-    checkboxes: {/* missingWorkAssigment: 0 || 1 */} ,
-    comments: [note]
+    checkBoxes: {/* missingWorkAssigment: 0 || 1 */} ,
+    notes: [note]
 }, {timestamps: true})
 
 let studentSchema = new Schema({

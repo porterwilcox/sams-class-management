@@ -7,15 +7,15 @@
         <i @click="updateNote(newNote)" class="clickable far fa-save fa-lg text-success"></i>
     </li>
     <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(note, i) in s.notes || form.notes">
-        <span :class="{'d-flex flex-column': $mq == 'sm'}" v-if="edit != note._id">
-            <b class="mr-2">{{note.title || ''}}</b>
-            {{note.content}}
-        </span>
-        <span v-else>
-            Title:
+        <span :class="{'d-flex flex-column': $mq == 'sm'}" v-if="edit == note._id || edit == i">
+             Title:
             <input v-model="note.title">
             Content:
             <textarea v-model="note.content"></textarea>
+        </span>
+        <span v-else>
+            <b class="mr-2">{{note.title || ''}}</b>
+            {{note.content}}
         </span>
         <span>
             <span v-if="edit == note._id || edit == i">
@@ -45,17 +45,11 @@ export default {
     },
     methods: {
     updateNote(note, i) {
-        if (!this.form) {
-            this.$store.dispatch("updateStudent", { id: this.s._id, note });
-        }
-        else if (this.form == "newForm") {
-            if (i == undefined) {
-                this.$emit('addNew', note)
-            } else {
-                if (!note.content) {
-                    this.s.notes.splice(i, 1)
-                }
-                this.$emit('modify', note, i)
+        if (!this.form) this.$store.dispatch("updateStudent", { id: this.s._id, note });
+        else {
+            if(i == undefined) this.form.notes.push(note)
+            else {
+                note.content ? this.form.notes[i] = note : this.form.notes.splice(i, 1)
             }
         }
         this.edit = "false";

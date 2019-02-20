@@ -6,7 +6,10 @@
           <h4>{{s.firstName+' '+s.lastName}}'s new form</h4>
         </div>
         <div class="modal-body">
-          <em @click="newCheckBox.active = !newCheckBox.active" class="clickable mb-2 w-fc">{{newCheckBox.active ? "Discard checkbox" : "Add a checkbox"}}</em>
+          <em
+            @click="newCheckBox.active = !newCheckBox.active"
+            class="clickable mb-2 w-fc"
+          >{{newCheckBox.active ? "Discard checkbox" : "Add a checkbox"}}</em>
           <ul class="list-group">
             <li v-if="newCheckBox.active" class="input-group d-flex">
               <input
@@ -29,24 +32,37 @@
                 </div>
               </div>
             </li>
-            <li v-for="(value, key) in form.checkBoxes" :key="key" class="list-group-item d-flex justify-content-between">
+            <li
+              v-for="(value, key) in form.checkBoxes"
+              :key="key"
+              class="list-group-item d-flex justify-content-between"
+            >
               <h5>{{reverseCamelCase(key)}}</h5>
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <input type="checkbox" :checked="value" v-model="form.checkBoxes[key]" />
+                  <input type="checkbox" :checked="value" v-model="form.checkBoxes[key]">
+                  <!-- <i @click="vm.$delete(form.checkBoxes, key)" class="clickable far fa-trash-alt fa-lg ml-3 text-danger"></i> -->
                 </div>
               </div>
             </li>
           </ul>
           <hr>
-          <notes-ul v-on:addNew="addNote" v-on:modify="modifyNote" :form="form" :s="s">
+          <notes-ul :form="form" :s="s">
             <div v-if="!form.notes.length" class="text-center">
               <img src="@/assets/imgs/emptystate.jpg" alt="empty" height="180px">
               <h6 class="text-secondary">No comments for {{s.firstName}} on this form!</h6>
-              <p>{{s.firstName}} <b>will</b> be able to see these comments.</p>
+              <p>
+                {{s.firstName}}
+                <b>will</b> be able to see these comments.
+              </p>
             </div>
           </notes-ul>
-          <button type="button" @click="createForm" class="btn btn-outline-primary m-1">Create Form</button>
+          <button
+            v-show="Object.keys(form.checkBoxes).length"
+            type="button"
+            @click="createForm"
+            class="btn btn-outline-primary m-1"
+          >Create Form</button>
         </div>
       </div>
     </div>
@@ -55,7 +71,7 @@
 
 <script>
 import camelCase from "lodash.camelcase";
-import NotesUl from '@/components/NotesUl.vue'
+import NotesUl from "@/components/NotesUl.vue";
 
 export default {
   name: "create-form-modal",
@@ -75,7 +91,9 @@ export default {
   },
   methods: {
     addCheckBox() {
-      this.form.checkBoxes[camelCase(this.newCheckBox.key)] = this.newCheckBox.value;
+      this.form.checkBoxes[
+        camelCase(this.newCheckBox.key)
+      ] = this.newCheckBox.value;
       this.newCheckBox = {
         active: false,
         key: "",
@@ -115,17 +133,15 @@ export default {
       return out;
     },
     createForm() {
-      console.log(this.form.checkBoxes)
-    },
-    addNote(note) {
-      this.form.notes.push(note)
-    },
-    modifyNote(note, i) {
-      if (!note.content) {
-        this.form.notes.splice(i,1)
-      } else {
-        this.form.notes[i] = note
+      this.$store.dispatch("updateStudent", {
+        form: {...this.form, classId: this.cId},
+        id: this.s._id
+      });
+      this.form = {
+        checkBoxes: {},
+        notes: []
       }
+      $('#form-modal' + this.s._id).modal('hide')
     }
   },
   components: {
