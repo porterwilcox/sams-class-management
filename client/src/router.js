@@ -44,6 +44,12 @@ let router = new Router({
       path: '/students/:sId',
       name: 'student',
       component: () => import('./views/Student.vue') 
+    },
+    {
+      path: '/students/:sId/forms/:fId',
+      name: 'student-form',
+      props: true,
+      component: () => import('./views/StudentForm.vue')
     }
   ]
 })

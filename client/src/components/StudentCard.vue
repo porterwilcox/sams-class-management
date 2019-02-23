@@ -6,7 +6,7 @@
             </div>
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div v-if="s.forms.length" class="d-flex">
-                    <i v-for="f in s.forms" class="far fa-file-alt mr-2 fa-2x clickable red bg-opac-red my-file"></i>
+                    <i v-for="f in s.forms" @click="$router.push({name: 'student-form', params: {sId: s._id, fId: f._id, f}})" class="far fa-file-alt mr-2 fa-2x clickable red bg-opac-red my-file"></i>
                 </div>
                 <div v-else>
                     <h6 class="m-0">No Forms!</h6>

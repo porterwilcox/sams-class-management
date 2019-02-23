@@ -79,7 +79,7 @@ export default new Vuex.Store({
     },
     getClass({commit}, cId){
       api.get(`classes/${cId}`)
-        .then(res => commit('setActiveClass', res.data))
+          .then(res => {console.log(res.data); commit('setActiveClass', res.data)})
         .catch(e => console.error(e))
     },
     deleteClass({}, id){
@@ -97,6 +97,7 @@ export default new Vuex.Store({
       api.post(`students/update`, payload) 
         .then(res => {
           console.log(res.data.message)
+          if (payload.form) return dispatch('getClass', payload.form.classId)
           dispatch('getStudent', payload.id)
         })
         .catch(e => console.error(e))
